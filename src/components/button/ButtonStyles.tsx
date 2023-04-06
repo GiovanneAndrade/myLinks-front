@@ -12,8 +12,8 @@ export const ButtonContainer = styled.form<ButtonProps>`
   background-color: rgba(0, 0, 0, 0.782);
   border: solid 0.1px #504848;
   position: relative;
-  
- cursor: pointer;
+  margin-top: 100px  ;
+ 
   input {
     
     border-radius: 15px;
@@ -47,8 +47,9 @@ export const ButtonContainer = styled.form<ButtonProps>`
   height: 100%;
   color: #fff;
   cursor: pointer;
- 
+
   margin-right:${(props) => props.type};
  }
 `;
+
  
