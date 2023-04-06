@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { AuthContext } from "../../providers/auth";
+import { postLinks } from "../../services/UserServices";
 import { ButtonContainer } from "./ButtonStyles";
+
 
 export const Button = () => {
   const [teste, setTeste] = useState(`0%`);
-  const [value, setValue] = useState(``);
+  const [value, setValue] = useState("");
+
+  const {  setNewLink, newLink, setShowCard } = React.useContext(AuthContext) as any;
   function handleNextMouseLeave() {
+    if (value !== "") {
+      return setTeste("0%");
+    }
     setTeste("20%");
     if (teste === "20%") setTeste("0%");
   }
@@ -16,13 +24,37 @@ export const Button = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+  function handleForm(e: any) {
+    e.preventDefault();
+   
+  }
+
+  function createLink() {
+    const link = postLinks(value);
+
+    link
+      .then((response) => {   
+        setNewLink([...newLink, response.data]);
+        setShowCard(true);
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+        alert(error.response.status);
+      });
+  }
 
   return (
-    <ButtonContainer type={teste}>
-      <input required type="text" placeholder="Cole Aqui Seu Link" />
+    <ButtonContainer type={teste} onSubmit={handleForm}>
+      <input
+        required
+        type="link"
+        placeholder="Cole Aqui Seu Link"
+        onChange={(e) => setValue(e.target.value)}
+      />
       <button
         onMouseEnter={handleNextMouseLeave}
         onMouseLeave={handlePrevMouseLeave}
+        onClick={createLink}
       >
         Enviar
       </button>
