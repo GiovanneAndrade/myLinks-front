@@ -1,18 +1,30 @@
 import React, { useState } from "react";
-import { CategoriesConteiner, H2 } from "./CategoriesStyles";
+import {
+  AddCategory,
+  AddCategoryContainer,
+  ButtonCancel,
+  ButtonPush,
+  Buttons,
+  CategoriesConteiner,
+  H2,
+} from "./CategoriesStyles";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { CategoriesContainer } from "./CategoriesContainer";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { AuthContext } from "../../providers/auth";
+import { postCategory } from "../../services/UserServices";
 export const Categories = () => {
-  const [handlePrev, setHandlePrev] = useState(true);
-  const [selectCategory, setSelectCategory] = useState("#b1c586");
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [value, setValue] = useState("");
+  const { showAddButton, setShowAddButton } = React.useContext(
+    AuthContext
+  ) as any;
   const listCategories = [
     { id: 1, title: "Links de Noticias" },
-      { id: 2, title: "Links de Favoritos" },
+    { id: 2, title: "Links de Favoritos" },
     { id: 3, title: "Links Mais Acessados" },
     { id: 4, title: "Ultimos Adicionados" },
     { id: 5, title: "Blogs" },
-    { id: 6, title: "Todos os Links" }, 
+    { id: 6, title: "Todos os Links" },
   ];
   const [show, setShow] = useState({
     width: "70px",
@@ -20,9 +32,10 @@ export const Categories = () => {
     content: "center",
     font: "9px",
     display: "none",
-    top:"140px",
-    right:'0',
-    position:'absolute',
+    top: "140px",
+    right: "0",
+    position: "absolute",
+    padding: "45px 10px 20px 10px",
   });
 
   function handleNextMouseLeave() {
@@ -32,11 +45,11 @@ export const Categories = () => {
       content: "space-between",
       font: "15px",
       display: "block",
-      top:"140px",
-      right:'0',
-      position:'absolute',
+      top: "140px",
+      right: "0",
+      position: "absolute",
+      padding: "45px 10px 20px 10px",
     });
-    setHandlePrev(false);
   }
 
   function handlePrevMouseLeave() {
@@ -46,13 +59,35 @@ export const Categories = () => {
       content: "center",
       font: "9px",
       display: "none",
-      top:"140px",
-      right:'0',
-      position:'absolute',
+      top: "140px",
+      right: "0",
+      position: "absolute",
+      padding: "45px 10px 20px 10px",
     });
-    setHandlePrev(true);
   }
-
+  function addCategory() {
+    setShowAddButton(true);
+    localStorage.removeItem("check");
+  }
+  function handleForm(e: any) {
+    e.preventDefault();
+    setValue("");
+  }
+  function pushCategory() {
+   
+    const categories = postCategory(value);
+    categories
+      .then((response) => {
+        console.log(response.data);
+        setValue("");
+        setShowAddButton(false);
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+        alert(error.response.status);
+      });
+  }
+  const buttonDisabled = value === "" ? true : false;
   return (
     <>
       <CategoriesConteiner type={show} onMouseEnter={handleNextMouseLeave}>
@@ -69,8 +104,44 @@ export const Categories = () => {
             categoryId={category.id}
           />
         ))}
+
+        <AddCategoryContainer selectCategory={"transparent"}>
+          {!showAddButton ? (
+            <AddCategory
+              selectCategory={"rgba(0, 0, 0, 0.782)"}
+              onClick={addCategory}
+            >
+              <AddCircleIcon style={{ fontSize: "30px" }} />
+            </AddCategory>
+          ) : (
+            <form onSubmit={handleForm}>
+              <input
+                type="text"
+                minLength={5}
+                placeholder="digite sua categoria"
+                onChange={(e) => setValue(e.target.value)}
+                value={value}
+              />
+              <Buttons>
+                <ButtonCancel
+                  showButton={buttonDisabled}
+                  onClick={() => setShowAddButton(false)}
+                >
+                  canelar
+                </ButtonCancel>
+                <ButtonPush
+                  showButton={buttonDisabled}
+                  onClick={pushCategory}
+                  type="submit"
+                  disabled={buttonDisabled}
+                >
+                  enviar
+                </ButtonPush>
+              </Buttons>
+            </form>
+          )}
+        </AddCategoryContainer>
       </CategoriesConteiner>
-      {/*  <CategoriesContainers />  */}
     </>
   );
 };
