@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { CategoriesContainer } from "../categories/CategoriesContainer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { CategoriesConteiner } from "../categories/CategoriesStyles";
-import { CardContainer } from "./CardStyles";
-import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
-export const Card = () => {
-  const listCategories = [
-    { id: 1, title: "Links de Noticias" },
-     { id: 2, title: "Links de Favoritos" },
-    { id: 3, title: "Links Mais Acessados" },
-    { id: 4, title: "Ultimos Adicionados" },
-    { id: 5, title: "Blogs" },
-    { id: 6, title: "Todos os Links" }, 
-  ];
+import { CardContainer, Cards, Img } from "./CardStyles";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { AuthContext } from "../../providers/auth";
+import ControlledCheckbox from "../checkbox/Checks";
+export const Card = (props: any) => {
+  const notify = () => toast("Em Breve!");
+  const { showAddButton, setShowAddButton } = React.useContext(
+    AuthContext
+  ) as any;
+  const [selectLink, setSelectLink] = useState<any[]>([]);
+
   const [show, setShow] = useState({
-    width: "475px",
+    width: "450px",
     color: "null",
     content: "space-between",
     font: "15px",
@@ -22,46 +23,36 @@ export const Card = () => {
     top: "null",
     right: "null",
     position: "relative",
+    padding: "0 0 10px 0",
   });
+ 
+ 
+
   return (
-    
-      <CategoriesConteiner type={show}>
-        <div>
-          <DoubleArrowIcon className="arrowIcon" />
-          Categories
-        </div>
-        <Teste>
-          <Img>teste img</Img>
-          <p>
-             público para dar adeus ao sonho de
-            ser o mais novo milionário do pedaço.
-            público para dar adeus ao sonho de
-            ser o mais novo milionário do pedaço.
-          </p>
-        </Teste>
-        <a href="">https://dol.com.br/entretenimento/fama/801129/bbb-23-impedido-fred-e-eliminado-com-5023-dos-votos?d=1</a>
-      </CategoriesConteiner>
-    
+    <CategoriesConteiner type={show}>
+      <div>
+        <DeleteIcon onClick={notify} className="arrowIcon" />
+        <EditIcon onClick={notify} className="edit" />
+
+        <span className="check" >
+          <p>Links de Noticias</p>
+          {showAddButton ? (
+            <ControlledCheckbox linkId={props.linkId}/>
+          ) : null}
+        </span>
+      </div>
+       
+      <Cards>
+        <Img>
+          <img src={props.banner} />
+        </Img>
+        <span>
+          <p>Descrição: {props.description}</p>
+          <p>Titulo: {props.title}</p>
+        </span>
+      </Cards>
+
+      <a href="">{props.website}</a>
+    </CategoriesConteiner>
   );
 };
-
-export const Teste = styled.span`
-  display: flex;
-  justify-content: space-between;
-
-  align-items: center;
-  width: 100%;
-
-  height: 100%;
-  p{
-    max-width: 70%;
-    height: 100%;
-    text-align: left;
-  }
-`;
-export const Img = styled.h1`
-  width: 100px;
-  height: 100px;
-  font-size: 15px;
-  background-color: #000;
-`;
