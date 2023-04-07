@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ContainerHome } from "../home/Home";
 import { useNavigate } from "react-router-dom";
 import {
+  ButtonSignin,
   ExternalLogin,
   FormSignin,
   H1,
@@ -13,6 +14,8 @@ import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import { ButtonContainer } from "../../components/button/ButtonStyles";
 import { postSignin } from "../../services/UserServices";
+import { Signup } from "../signup/Signup";
+import { AuthContext } from "../../providers/auth";
 
 interface FormValues {
   email: string;
@@ -20,10 +23,14 @@ interface FormValues {
 }
 
 export const Signin: React.FC = () => {
+  const { user, setUser } = React.useContext(
+    AuthContext
+  ) as any;
   const [formValues, setFormValues] = useState<FormValues>({
     email: "",
     password: "",
   });
+  const [register, setRegister] = useState(false);
   const navigate = useNavigate();
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({ ...formValues, email: event.target.value });
@@ -39,7 +46,9 @@ export const Signin: React.FC = () => {
     signin
       .then((response) => {
         console.log(response.data);
-        navigate("/");
+        localStorage.setItem("tokenMyLink", JSON.stringify(response.data));
+        setUser(response.data.token)
+        navigate("/home");
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -71,28 +80,47 @@ export const Signin: React.FC = () => {
           </ExternalLogin>
           <H1>OR</H1>
           <FormSignin onSubmit={handleForm}>
-            <ButtonContainer type={"0%"}>
-              <input
-                type="text"
-                value={formValues.email}
-                onChange={handleNameChange}
-              />
-            </ButtonContainer>
-            <ButtonContainer type={"0%"}>
-              <input
-                type="text"
-                value={formValues.password}
-                onChange={handleEmailChange}
-              />
-            </ButtonContainer>
+            {!register ? (
+              <>
+                <ButtonSignin type={"0%"}>
+                  <input
+                    type="email"
+                    placeholder="email"
+                    value={formValues.email}
+                    onChange={handleNameChange}
+                  />
+                </ButtonSignin>
+                <ButtonSignin type={"0%"}>
+                  <input
+                    type="password"
+                    placeholder="senha"
+                    value={formValues.password}
+                    onChange={handleEmailChange}
+                  />
+                </ButtonSignin>
+              </>
+            ) : (
+              <Signup />
+            )}
+
             <div className="forgotPassword">
               <a>Forgot password</a>
             </div>
 
             <div>
-              <button onClick={createUser}>Entrar</button>
+              <button onClick={createUser}>
+                {register ? "Cadastrar" : "Entrar"}
+              </button>
               <p>
-                if you are new here? <a>register</a> now
+                {!register ? (
+                  <>
+                    if you are new here?
+                    <a onClick={() => setRegister(true)}> register</a> now
+                  </>
+                ) : (
+                  <p> Already have registration? <a onClick={() => setRegister(false)}>Login</a> </p>
+                 
+                )}
               </p>
             </div>
           </FormSignin>
