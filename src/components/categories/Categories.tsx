@@ -15,17 +15,13 @@ import { AuthContext } from "../../providers/auth";
 import { postCategory } from "../../services/UserServices";
 export const Categories = () => {
   const [value, setValue] = useState("");
-  const { showAddButton, setShowAddButton } = React.useContext(
+  const [newCategory, setNewCategory] = useState() as any;
+  const { showAddButton, setShowAddButton, categories } = React.useContext(
     AuthContext
   ) as any;
-  const listCategories = [
-    { id: 1, title: "Links de Noticias" },
-    { id: 2, title: "Links de Favoritos" },
-    { id: 3, title: "Links Mais Acessados" },
-    { id: 4, title: "Ultimos Adicionados" },
-    { id: 5, title: "Blogs" },
-    { id: 6, title: "Todos os Links" },
-  ];
+ 
+  const categoryList = categories && newCategory ?[...categories,newCategory]:categories
+
   const [show, setShow] = useState({
     width: "70px",
     color: "transparent",
@@ -74,13 +70,16 @@ export const Categories = () => {
     setValue("");
   }
   function pushCategory() {
-   
     const categories = postCategory(value);
     categories
       .then((response) => {
         console.log(response.data);
         setValue("");
         setShowAddButton(false);
+        let listLink = localStorage.getItem("check") as any;
+        listLink = listLink ? JSON.parse(listLink) : [];
+        const myCategory = { name: value, linkId: listLink };
+        setNewCategory(myCategory)
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -98,10 +97,11 @@ export const Categories = () => {
           />
           Categories
         </div>
-        {listCategories.map((category) => (
+        {categoryList?.map((category: any) => (
           <CategoriesContainer
-            category={category.title}
+            category={category.name}
             categoryId={category.id}
+            categoryLinks={category.links}
           />
         ))}
 
