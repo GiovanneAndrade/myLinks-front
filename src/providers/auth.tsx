@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { getCategories, getLinks } from "../services/UserServices";
 
+
 export const AuthContext = React.createContext({});
 
 export const AuthProvider = (props: any) => {
   const [link, setLink] = useState();
+  const [user, setUser] = useState();
   const [categories, setCategories] = useState();
   const [newLink, setNewLink] = useState() as any;
   const [showCard, setShowCard] = useState(false);
   const [showAddButton, setShowAddButton] = useState(false);
-  console.log(categories)
+  const [categoriesId, setCategoriesId] = useState([]) as any;
+  const [categoryName, setCategoryName] = useState("");
+  const [page, setPage] = React.useState(1);
+  const [per_page, setPerPage] = React.useState(10);
+
+  
   useEffect(() => {
     const links = getLinks();
     links
@@ -20,6 +27,8 @@ export const AuthProvider = (props: any) => {
         console.log(err);
       });
   }, []);
+
+
   useEffect(() => {
     const categories = getCategories();
     categories
@@ -40,7 +49,13 @@ export const AuthProvider = (props: any) => {
         setShowCard,
         showAddButton,
         setShowAddButton,
-        categories
+        categories,
+        categoriesId,
+        setCategoriesId,
+        setCategoryName,
+        categoryName,
+        user,
+        setUser,
       }}
     >
       {props.children}
