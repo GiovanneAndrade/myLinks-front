@@ -11,6 +11,7 @@ export const Nav = () => {
   function logout(){
     localStorage.removeItem("tokenMyLink");
     navigate("/");
+    window.location.reload();
   }
   return (
     <NavContainer>
