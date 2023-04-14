@@ -1,24 +1,7 @@
 import styled from "styled-components";
-interface ConteinerProps {
-  type: {
-    width: string;
-    color: string;
-    content: string;
-    font: string;
-    display: string;
-    top: string;
-    right: string;
-    position: string;
-    padding: string;
-  };
-}
-interface SelectCategoryProps {
-  selectCategory: string;
-}
-interface showButton {
-  showButton: boolean;
-}
-export const CategoriesConteiner = styled.div<ConteinerProps>`
+
+
+export const CategoriesConteiner = styled.div`
   display: flex;
   flex-direction: column;
   width: ${(props) => props.type.width};
@@ -35,7 +18,7 @@ export const CategoriesConteiner = styled.div<ConteinerProps>`
   color: ${(props) => props.type.color};
   top: ${(props) => props.type.top};
   right: ${(props) => props.type.right};
-
+margin-right:10px;
   div {
     cursor: pointer;
     width: 100%;
@@ -89,7 +72,7 @@ export const CategoriesConteiner = styled.div<ConteinerProps>`
   }
   
 `;
-export const H2 = styled.h2<SelectCategoryProps>`
+export const H2 = styled.h2`
   cursor: pointer;
   width: 100%;
   height: 50px;
@@ -120,7 +103,7 @@ export const Buttons = styled.span`
   gap: 10px;
  
 `;
-export const ButtonPush = styled.button<showButton>`
+export const ButtonPush = styled.button`
     background:${props => props.showButton ? 'gray' : 'rgba(0, 0, 0, 0.782)'};
     width:80px;
     height: 30px;

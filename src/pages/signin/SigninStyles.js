@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ButtonContainer } from "../../components/button/ButtonStyles";
 
 export const SigninContainer = styled.div`
   width: 1100px;
@@ -119,3 +120,8 @@ export const FormSignin = styled.form`
     cursor: pointer;
   }
 `;
+
+export const ButtonSignin = styled(ButtonContainer)`
+ margin-top: 0;
+`
+

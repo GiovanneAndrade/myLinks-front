@@ -1,8 +1,6 @@
 import styled from "styled-components";
-interface ButtonProps {
-  type: string;
-}
-export const ButtonContainer = styled.form<ButtonProps>`
+
+export const ButtonContainer = styled.form`
   display: flex;
   align-items: center;
   justify-content: space-between;

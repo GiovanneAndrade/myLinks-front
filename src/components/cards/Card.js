@@ -7,12 +7,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { AuthContext } from "../../providers/auth";
 import ControlledCheckbox from "../checkbox/Checks";
 import { toast } from "react-toastify";
-export const Card = (props: any) => {
+export const Card = (props) => {
   const notify = () => toast("Em Breve!");
   const { showAddButton, setShowAddButton, categoryName } = React.useContext(
     AuthContext
-  ) as any;
-  const [selectLink, setSelectLink] = useState<any[]>([]);
+  );
+  const [selectLink, setSelectLink] = useState([]);
 
   const [show, setShow] = useState({
     width: "450px",

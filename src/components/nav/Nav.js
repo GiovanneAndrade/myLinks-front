@@ -6,7 +6,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useNavigate } from "react-router-dom";
 export const Nav = () => {
   const navigate = useNavigate();
-  let name = localStorage.getItem("tokenMyLink") as any;
+  let name = localStorage.getItem("tokenMyLink");
   name = name ? JSON.parse(name) : [];
   function logout(){
     localStorage.removeItem("tokenMyLink");

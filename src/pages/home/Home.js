@@ -10,16 +10,19 @@ import { AuthContext } from "../../providers/auth";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import RecipeReviewCard from "../../components/teste/Teste";
 import PaginationLink from "../../components/pagination/Pagination";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import YouTube from "../../components/button/skeleton/Skeleton";
 
 export const Home = () => {
   const { link, newLink, setNewLink, showCard, categories, categoriesId } =
-    React.useContext(AuthContext) as any;
+    React.useContext(AuthContext);
 
-  const resultCategory = categories?.filter((item: any) =>
+  const resultCategory = categories?.filter((item) =>
     categoriesId?.includes(item.id)
   );
- 
-  const selectCategoryReverse = resultCategory?.map((item: any) => item.links);
+
+  const selectCategoryReverse = resultCategory?.map((item) => item.links);
 
   let newArr = selectCategoryReverse?.flat();
 
@@ -29,11 +32,11 @@ export const Home = () => {
   for (let i = newArr?.length - 1; i >= 0; i--) {
     reversedArray.push(newArr[i]);
   }
- 
+
   useEffect(() => {
     setNewLink(link?.links);
   }, [link]);
-
+  const teste = [];
   return (
     <>
       <Nav />
@@ -41,40 +44,44 @@ export const Home = () => {
         <ToastContainer />
         <Button />
         <Categories />
+
         <div>
-        <PaginationLink/>
-        <CardContainerHome>
-          <TransitionGroup
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              minWidth: "500px",
-              gap: "20px",
-            }}
-          >
-            {reversedArray.map((link: any, index: any) => (
-              <CSSTransition key={link.id} classNames="fade" timeout={300}>
-                 <Card
-                  banner={link.banner}
-                  description={link.description}
-                  title={link.title}
-                  website={link.website}
-                  linkId={link.id}
-                  list={link.link?.list}
-                />
-               {/*  <RecipeReviewCard
-                  banner={link.banner}
-                  description={link.description}
-                  title={link.title}
-                  website={link.website}
-                  linkId={link.id}
-                /> */}
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </CardContainerHome>
+          <Pagintion>
+            <PaginationLink />
+            <div>
+              <DeleteIcon />
+              <EditIcon />
+            </div>
+          </Pagintion>
+          {/* <YouTube reversedArray={reversedArray}/> */}
+          <CardContainerHome>
+            {reversedArray.length === 0 ? (
+              <YouTube />
+            ) : (
+              <TransitionGroup
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr ",
+                  minWidth: "500px",
+                  gap: "20px",
+                }}
+              >
+                {reversedArray.map((link, index) => (
+                  <CSSTransition key={link.id} classNames="fade" timeout={300}>
+                    <Card
+                      banner={link.banner}
+                      description={link.description}
+                      title={link.title}
+                      website={link.website}
+                      linkId={link.id}
+                      list={link.link?.list}
+                    />
+                  </CSSTransition>
+                ))}
+              </TransitionGroup>
+            )}
+          </CardContainerHome>
         </div>
-       
       </ContainerHome>
     </>
   );
@@ -118,5 +125,18 @@ const CardContainerHome = styled(CardContainer)`
   .fade-exit-active {
     opacity: 0;
     transition: opacity 100ms ease-in;
+  }
+`;
+
+export const Pagintion = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 44px 20px 25px;
+  margin-top: 50px;
+  div {
+    display: flex;
+    gap: 17px;
   }
 `;

@@ -8,7 +8,7 @@ export const Button = () => {
   const [teste, setTeste] = useState(`0%`);
   const [value, setValue] = useState("");
 
-  const {  setNewLink, newLink, setShowCard } = React.useContext(AuthContext) as any;
+  const {  setNewLink, newLink, setShowCard } = React.useContext(AuthContext);
   function handleNextMouseLeave() {
     if (value !== "") {
       return setTeste("0%");
@@ -24,7 +24,7 @@ export const Button = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-  function handleForm(e: any) {
+  function handleForm(e) {
     e.preventDefault();
    
   }

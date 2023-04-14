@@ -15,10 +15,10 @@ import { AuthContext } from "../../providers/auth";
 import { postCategory } from "../../services/UserServices";
 export const Categories = () => {
   const [value, setValue] = useState("");
-  const [newCategory, setNewCategory] = useState() as any;
+  const [newCategory, setNewCategory] = useState();
   const { showAddButton, setShowAddButton, categories } = React.useContext(
     AuthContext
-  ) as any;
+  );
  
   const categoryList = categories && newCategory ?[...categories,newCategory]:categories
 
@@ -65,7 +65,7 @@ export const Categories = () => {
     setShowAddButton(true);
     localStorage.removeItem("check");
   }
-  function handleForm(e: any) {
+  function handleForm(e) {
     e.preventDefault();
     setValue("");
   }
@@ -76,7 +76,7 @@ export const Categories = () => {
         console.log(response.data);
         setValue("");
         setShowAddButton(false);
-        let listLink = localStorage.getItem("check") as any;
+        let listLink = localStorage.getItem("check");
         listLink = listLink ? JSON.parse(listLink) : [];
         const myCategory = { name: value, linkId: listLink };
         setNewCategory(myCategory)
@@ -97,7 +97,7 @@ export const Categories = () => {
           />
           Categories
         </div>
-        {categoryList?.map((category: any) => (
+        {categoryList?.map((category) => (
           <CategoriesContainer
             category={category.name}
             categoryId={category.id}

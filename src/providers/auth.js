@@ -4,14 +4,14 @@ import { getCategories, getLinks } from "../services/UserServices";
 
 export const AuthContext = React.createContext({});
 
-export const AuthProvider = (props: any) => {
+export const AuthProvider = (props) => {
   const [link, setLink] = useState();
   const [user, setUser] = useState();
   const [categories, setCategories] = useState();
-  const [newLink, setNewLink] = useState() as any;
+  const [newLink, setNewLink] = useState();
   const [showCard, setShowCard] = useState(false);
   const [showAddButton, setShowAddButton] = useState(false);
-  const [categoriesId, setCategoriesId] = useState([]) as any;
+  const [categoriesId, setCategoriesId] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const [page, setPage] = React.useState(1);
   const [per_page, setPerPage] = React.useState(10);

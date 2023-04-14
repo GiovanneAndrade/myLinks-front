@@ -2,15 +2,10 @@ import * as React from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { AuthContext } from "../../providers/auth";
 
-interface ControlledCheckboxProps {
-  linkId: string;
-}
-interface LinkIdObject {
-  id: string;
-}
-export default function ControlledCheckbox(props: ControlledCheckboxProps) {
-  const [ids, setIds] = React.useState<string[]>([]);
-  const { newLink } = React.useContext(AuthContext) as any;
+
+export default function ControlledCheckbox(props) {
+  const [ids, setIds] = React.useState([]);
+  const { newLink } = React.useContext(AuthContext) ;
 
   React.useEffect(() => {
     const checkString = localStorage.getItem("check");
@@ -19,7 +14,7 @@ export default function ControlledCheckbox(props: ControlledCheckboxProps) {
     }
   }, []);
 
-  const handleChange = (linkId: string) => {
+  const handleChange = (linkId) => {
     const checkString = localStorage.getItem("check");
     
     if (!checkString) {
@@ -27,12 +22,12 @@ export default function ControlledCheckbox(props: ControlledCheckboxProps) {
       setIds([linkId]);
     } else {
       const getCheck = JSON.parse(checkString);
-      const existingObj = getCheck.find((obj:LinkIdObject) => obj.id === linkId);
+      const existingObj = getCheck.find((obj) => obj.id === linkId);
   
       if (existingObj) {
-        const newCheck = getCheck.filter((obj:LinkIdObject) => obj.id !== linkId);
+        const newCheck = getCheck.filter((obj) => obj.id !== linkId);
         localStorage.setItem("check", JSON.stringify(newCheck));
-        setIds(newCheck.map((obj:LinkIdObject) => obj.id));
+        setIds(newCheck.map((obj) => obj.id));
       } else {
         const newCheck = [...getCheck, { id: linkId }];
         localStorage.setItem("check", JSON.stringify(newCheck));
