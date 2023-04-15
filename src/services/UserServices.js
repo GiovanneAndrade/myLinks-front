@@ -1,6 +1,5 @@
 import axios from "axios";
-import { AuthContext } from "../providers/auth";
-import React, { useEffect } from "react";
+ 
 
 const APIprefix = process.env.REACT_APP_BACK_END_URL;
  
@@ -36,6 +35,13 @@ function getLinks() {
 function getCategories() {
   return axios.get(`${APIprefix}/category`, config);
 }
+function deleteLink(link) {
+  return axios.delete(`${APIprefix}/link`, {
+    ...config,
+    data:  link 
+  });
+}
+
 export {
   postSignin,
   postLinks,
@@ -43,4 +49,5 @@ export {
   postCategory,
   getCategories,
   postSignup,
+  deleteLink
 };
