@@ -18,10 +18,14 @@ export const CategoriesConteiner = styled.div`
   color: ${(props) => props.type.color};
   top: ${(props) => props.type.top};
   right: ${(props) => props.type.right};
-margin-right:10px;
+  margin-right:10px;
+  @media(max-width: 500px) {
+    width: 100%;
+    margin-right: 0;
+  }
   div {
     cursor: pointer;
-    width: 100%;
+    width: ${(props) => props.widthInitial ? props.widthInitial : '100%'};
     height: 30px;
     position: ${(props) => props.type.position};
     top: 0;
@@ -39,13 +43,23 @@ margin-right:10px;
     padding: 10px 25px;
     gap: 70px;
   }
+  .actions-container {
+    background:transparent;
+    display: flex;
+    gap: 1rem;
+    .arrowIcon {
+      margin-left: 0;
+    }
+  }
   .arrowIcon {
     cursor: pointer;
     display: ${(props) => props.type.display};
     margin-left: -12px;
+    position: static;
   }
   .edit {
-    margin-left: -200px;
+    
+    position: static;
   }
   a {
     margin-left: 10px;

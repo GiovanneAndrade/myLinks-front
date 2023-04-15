@@ -15,37 +15,33 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import YouTube from "../../components/button/skeleton/Skeleton";
 
 export const Home = () => {
-  const { link, newLink, setNewLink, showCard, categories, categoriesId } =
-    React.useContext(AuthContext);
-
-  const resultCategory = categories?.filter((item) =>
-    categoriesId?.includes(item.id)
-  );
-
-  const selectCategoryReverse = resultCategory?.map((item) => item.links);
-
-  let newArr = selectCategoryReverse?.flat();
-
-  newArr = newArr?.length === 0 ? newLink : newArr;
+  const {
+    link,
+    newLink,
+    setNewLink,
+    showCard,
+    categories,
+    clickedLinkId,
+    setClickedLinkId,
+  } = React.useContext(AuthContext);
 
   const reversedArray = [];
-  for (let i = newArr?.length - 1; i >= 0; i--) {
-    reversedArray.push(newArr[i]);
+  for (let i = newLink?.length - 1; i >= 0; i--) {
+    reversedArray.push(newLink[i]);
   }
-
   useEffect(() => {
-    setNewLink(link?.links);
-  }, [link]);
-  const teste = [];
+    setNewLink(categories?.filter((c) => c.id === 0)[0]?.links);
+  }, [categories]);
+
   return (
     <>
       <Nav />
       <ContainerHome>
         <ToastContainer />
         <Button />
-        <Categories />
+       {/*  <Categories /> */}
 
-        <div>
+        <div style={{ width: "95%", maxWidth: "1600px" }}>
           <Pagintion>
             <PaginationLink />
             <div>
@@ -55,27 +51,24 @@ export const Home = () => {
           </Pagintion>
           {/* <YouTube reversedArray={reversedArray}/> */}
           <CardContainerHome>
-            {reversedArray.length === 0 ? (
+            {!newLink?.length ? (
               <YouTube />
             ) : (
-              <TransitionGroup
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr ",
-                  minWidth: "500px",
-                  gap: "20px",
-                }}
-              >
-                {reversedArray.map((link, index) => (
+              <TransitionGroup className="transition">
+                {reversedArray?.map((link, index) => (
                   <CSSTransition key={link.id} classNames="fade" timeout={300}>
-                    <Card
-                      banner={link.banner}
-                      description={link.description}
-                      title={link.title}
-                      website={link.website}
-                      linkId={link.id}
-                      list={link.link?.list}
-                    />
+                    {clickedLinkId === link.id ? (
+                      <>ok</>
+                    ) : (
+                      <Card
+                        banner={link.banner}
+                        description={link.description}
+                        title={link.title}
+                        website={link.website}
+                        linkId={link.id}
+                        list={link.link?.list}
+                      />
+                    )}
                   </CSSTransition>
                 ))}
               </TransitionGroup>
@@ -96,20 +89,28 @@ export const ContainerHome = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom: 50px;
-  margin-left: -50px;
+   
 `;
 
 const CardContainerHome = styled(CardContainer)`
   border-color: #f9f4f4;
   position: relative;
-
-  .teste {
+  .transition {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-
-    min-width: 500px;
-    min-height: 200px;
+    /* gridTemplateColumns: "1fr 1fr 1fr ",
+    minWidth: "500px",
+    gap: "20px", */
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    column-gap: 2rem;
+    row-gap: 1rem;
+    @media(max-width: 500px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
   }
+ 
   .fade {
   }
   .fade-enter {
@@ -138,5 +139,11 @@ export const Pagintion = styled.div`
   div {
     display: flex;
     gap: 17px;
+  }
+  @media(max-width: 500px) {
+    flex-direction: column-reverse;
+    margin: 2rem 0;
+    padding: 0;
+    gap: 1rem
   }
 `;

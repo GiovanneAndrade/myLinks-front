@@ -15,18 +15,7 @@ export const AuthProvider = (props) => {
   const [categoryName, setCategoryName] = useState("");
   const [page, setPage] = React.useState(1);
   const [per_page, setPerPage] = React.useState(10);
-
-  
-  useEffect(() => {
-    const links = getLinks();
-    links
-      .then((response) => {
-        setLink(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const [clickedLinkId, setClickedLinkId] = useState(null);
 
 
   useEffect(() => {
@@ -34,6 +23,7 @@ export const AuthProvider = (props) => {
     categories
       .then((response) => {
         setCategories(response.data);
+        setNewLink(categories?.filter(c => c.id === 0)[0]?.links);
       })
       .catch((err) => {
         console.log(err);
@@ -56,6 +46,7 @@ export const AuthProvider = (props) => {
         categoryName,
         user,
         setUser,
+        clickedLinkId, setClickedLinkId
       }}
     >
       {props.children}

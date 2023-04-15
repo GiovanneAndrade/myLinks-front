@@ -11,7 +11,9 @@ export const ButtonContainer = styled.form`
   border: solid 0.1px #504848;
   position: relative;
   margin-top: 100px  ;
- 
+  @media(max-width: 500px) {
+    max-width: 90%;
+  }
   input {
     
     border-radius: 15px;

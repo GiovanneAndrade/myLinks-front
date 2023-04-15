@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CardContainer = styled.div`
 /*   display: grid;
   grid-template-columns: 1fr 1fr 1fr;  */
-  min-width: 500px;
+  //min-width: 500px;
   max-width: 1600px;
   min-height: 200px;
   border-radius: 10px;
@@ -18,16 +18,23 @@ export const CardContainer = styled.div`
 `;
 export const Cards = styled.span`
   display: flex;
-  
-
   align-items: center;
   width: 100%;
   gap: 10px;
   height: 100%;
+
+  @media(max-width: 500px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   p {
     max-width: 90%;
-  font-size: 12px;
+    font-size: 12px;
     text-align: left;
+    @media(max-width: 500px) {
+      text-align: center;
+    }
   }
   span {
     display: flex;
@@ -36,7 +43,11 @@ export const Cards = styled.span`
     flex-direction: column;
     gap: 8px;
     justify-content: space-between;
-   
+    @media(max-width: 500px) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;
 export const Img = styled.h1`
@@ -49,6 +60,9 @@ export const Img = styled.h1`
   align-items: center;
   justify-content: center;
   margin-left: 10px;
+  @media(max-width: 500px) {
+    margin-left: 0;
+  }
   img {
     max-width: 100%;
     max-height: 100vh;
