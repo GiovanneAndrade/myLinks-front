@@ -16,19 +16,21 @@ export const NavContainer = styled.nav`
   border-radius: 10px;
   margin: 8px 10px;
   padding: 0 25px;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    width: 95%;
+  }
 `;
 
 export const NavRight = styled.div`
   display: flex;
-
   align-items: center;
   justify-content: center;
   gap: 15px;
-  p {
-    cursor: pointer;
-  }
 `;
+
 export const P = styled.div`
-   color: #fff;
-   text-transform: lowercase;
-`
+  color: #fff;
+  text-transform: lowercase;
+`;
