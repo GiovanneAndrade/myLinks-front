@@ -16,6 +16,12 @@ export const SigninContainer = styled.div`
 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+  @media (max-width: 1200px) {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px 10px 0 0;
+  }
 `;
 
 export const SigninLeft = styled.div`
