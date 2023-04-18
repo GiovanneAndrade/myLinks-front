@@ -16,7 +16,7 @@ export const NavContainer = styled.nav`
   border-radius: 10px;
   margin: 8px 10px;
   padding: 0 25px;
-
+  z-index: 2;
   @media (max-width: 768px) {
     position: absolute;
     width: 95%;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const CategoriesConteiner = styled.div`
   display: flex;
   flex-direction: column;
-  width: ${(props) => props.type.width};
+  max-width: 500px;
   transition-duration: 0.4s;
   min-height: 60px;
   /*  margin-right: 30px; */
@@ -109,6 +109,15 @@ export const AddCategoryContainer = styled(AddCategory)`
   flex-direction: column;
   padding: 0;
   gap: 10px;
+  input{
+    width: 80%;
+    height: 30px;
+    border-radius: 7px;
+    border: none;
+    color: white;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.782);
+  }
 `;
 export const Buttons = styled.span`
   width: 100%;

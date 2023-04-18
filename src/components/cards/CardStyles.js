@@ -4,7 +4,8 @@ export const CardContainer = styled.div`
 /*   display: grid;
   grid-template-columns: 1fr 1fr 1fr;  */
   //min-width: 500px;
-  max-width: 1600px;
+
+  min-width: 100%;
   min-height: 200px;
   border-radius: 10px;
   padding: 30px;

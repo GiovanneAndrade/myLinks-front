@@ -13,6 +13,8 @@ import PaginationLink from "../../components/pagination/Pagination";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import YouTube from "../../components/button/skeleton/Skeleton";
+import { Grid } from "@mui/material";
+import { EditCard } from "../../components/editCard/EditCard";
 
 export const Home = () => {
   const {
@@ -35,11 +37,10 @@ export const Home = () => {
 
   return (
     <>
-      <Nav />
+      {/* <Nav /> */}
       <ContainerHome>
         <ToastContainer />
         <Button />
-       {/*  <Categories /> */}
 
         <div style={{ width: "95%", maxWidth: "1600px" }}>
           <Pagintion>
@@ -49,7 +50,7 @@ export const Home = () => {
               <EditIcon />
             </div>
           </Pagintion>
-          {/* <YouTube reversedArray={reversedArray}/> */}
+
           <CardContainerHome>
             {!newLink?.length ? (
               <YouTube />
@@ -58,8 +59,9 @@ export const Home = () => {
                 {reversedArray?.map((link, index) => (
                   <CSSTransition key={link.id} classNames="fade" timeout={300}>
                     {clickedLinkId === link.id ? (
-                      <>ok</>
+                      <EditCard />
                     ) : (
+                      
                       <Card
                         banner={link.banner}
                         description={link.description}
@@ -89,12 +91,12 @@ export const ContainerHome = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom: 50px;
-   
 `;
 
 const CardContainerHome = styled(CardContainer)`
   border-color: #f9f4f4;
   position: relative;
+
   .transition {
     display: grid;
     /* gridTemplateColumns: "1fr 1fr 1fr ",
@@ -103,14 +105,14 @@ const CardContainerHome = styled(CardContainer)`
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     column-gap: 2rem;
     row-gap: 1rem;
-    @media(max-width: 500px) {
+    @media (max-width: 500px) {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
   }
- 
+
   .fade {
   }
   .fade-enter {
@@ -140,10 +142,10 @@ export const Pagintion = styled.div`
     display: flex;
     gap: 17px;
   }
-  @media(max-width: 500px) {
+  @media (max-width: 500px) {
     flex-direction: column-reverse;
     margin: 2rem 0;
     padding: 0;
-    gap: 1rem
+    gap: 1rem;
   }
 `;

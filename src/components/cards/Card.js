@@ -17,7 +17,7 @@ export const Card = (props) => {
     setLink,
     setNewLink,
     newLink,
-    clickedLinkId,
+    setLinkId,
     setClickedLinkId,
   } = React.useContext(AuthContext);
   const notify = () => toast("Em Breve!");
@@ -54,8 +54,8 @@ export const Card = (props) => {
       });
   }
   const handleCardClick = (linkId) => {
-    /* setClickedLinkId(linkId); */
-    notify();
+    setClickedLinkId(linkId); 
+    setLinkId(props.linkId)
   };
 
   return (
