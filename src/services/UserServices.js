@@ -41,6 +41,9 @@ function deleteLink(link) {
     data:  link 
   });
 }
+function editLink(link) {
+  return axios.put(`${APIprefix}/link`, link, config);
+}
 
 export {
   postSignin,
@@ -49,5 +52,6 @@ export {
   postCategory,
   getCategories,
   postSignup,
-  deleteLink
+  deleteLink,
+  editLink
 };
