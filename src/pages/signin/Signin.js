@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ContainerHome } from "../home/Home";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,10 +19,9 @@ import { Signup } from "../signup/Signup";
 import { AuthContext } from "../../providers/auth";
 import { toast } from "react-toastify";
 
-
-
 export const Signin = () => {
-  const { user, setUser } = React.useContext(AuthContext) ;
+  const { user, setUser } = React.useContext(AuthContext);
+  const [passwordError, setPasswordError] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -43,9 +42,7 @@ export const Signin = () => {
     setFormValues({ ...formValues, name: event.target.value });
   };
 
-  const handleConfirmPasswordChange = (
-    event
-  ) => {
+  const handleConfirmPasswordChange = (event) => {
     setFormValues({ ...formValues, confirmPassword: event.target.value });
   };
 
@@ -53,7 +50,12 @@ export const Signin = () => {
     e.preventDefault();
   }
   function createUser() {
-    
+    if (register && formValues.password !== formValues.confirmPassword) {
+      return setPasswordError(true);
+    } else {
+      setPasswordError(false);
+    }
+
     if (!register) {
       const signin = postSignin({
         email: formValues.email,
@@ -75,19 +77,25 @@ export const Signin = () => {
       const signup = postSignup(formValues);
       signup
         .then((response) => {
-          
           console.log(response.data);
           setRegister(false);
-          
-        
         })
         .catch((error) => {
           console.log(error.response.data.message);
-          alert(error.response.status);
+          alert(error.response.data.message);
         });
     }
   }
-
+  function newLogin() {
+    setRegister(false);
+    setFormValues({ email: "", password: "", name: "", confirmPassword: "" });
+    setPasswordError(false)
+  }
+  function newRegister() {
+    setRegister(true);
+    setFormValues({ email: "", password: "", name: "", confirmPassword: "" });
+    setPasswordError(false)
+  }
   return (
     <ContainerHome>
       <SigninContainer>
@@ -131,7 +139,7 @@ export const Signin = () => {
                 onChange={handleEmailChange}
               />
             </ButtonSignin>
-            <ButtonSignin type={"0%"}>
+            <ButtonSignin type={"0%"} border={passwordError}>
               <input
                 type="password"
                 placeholder="senha"
@@ -140,7 +148,7 @@ export const Signin = () => {
               />
             </ButtonSignin>
             {register ? (
-              <ButtonSignin type={"0%"}>
+              <ButtonSignin type={"0%"} border={passwordError}>
                 <input
                   type="password"
                   placeholder="confirme a senha"
@@ -161,13 +169,12 @@ export const Signin = () => {
                 {!register ? (
                   <>
                     if you are new here?
-                    <a onClick={() => setRegister(true)}> register</a> now
+                    <a onClick={newRegister}> register</a> now
                   </>
                 ) : (
                   <p>
-                    {" "}
-                    Already have registration?{" "}
-                    <a onClick={() => setRegister(false)}>Login</a>{" "}
+                    Already have registration?
+                    <a onClick={newLogin}>Login</a>
                   </p>
                 )}
               </p>
