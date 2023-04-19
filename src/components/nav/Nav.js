@@ -8,7 +8,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AuthContext } from "../../providers/auth";
 import { IconButton } from "@mui/material";
 export const Nav = () => {
-  const { open, setOpen } = React.useContext(AuthContext);
+  const { open, setOpen, selectCategory } = React.useContext(AuthContext);
+ 
   const navigate = useNavigate();
   let name = localStorage.getItem("tokenMyLink");
   name = name ? JSON.parse(name) : [];
@@ -32,7 +33,7 @@ export const Nav = () => {
         <MenuIcon />
       </IconButton>
 
-      <p>home</p>
+      <p>{!selectCategory?'All Links':selectCategory?.name}</p>
       <NavRight>
         <Tooltip title="edit" disableInteractive>
           <Button style={{ color: "#fff", margin: "-30px" }}>
