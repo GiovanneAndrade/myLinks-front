@@ -16,8 +16,8 @@ function postSignin(formValues) {
 function postSignup(formValues) {
   return axios.post(`${APIprefix}/signup`, formValues);
 }
-function postLinks(value) {
-  return axios.post(`${APIprefix}/link`, { link: value }, config);
+function postLinks(value, listId) {
+  return axios.post(`${APIprefix}/link`, { link: value, listId:listId }, config);
 }
 function postCategory(value) {
   let listLink = localStorage.getItem("check");
