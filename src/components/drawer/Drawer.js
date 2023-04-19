@@ -25,7 +25,7 @@ import { Home } from "../../pages/home/Home";
 import CategoryIcon from "@mui/icons-material/Category";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import { Categories } from "../categories/Categories";
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery } from "@mui/material";
 import {
   AddCategory,
   AddCategoryContainer,
@@ -35,10 +35,11 @@ import {
 } from "../categories/CategoriesStyles";
 import { postCategory } from "../../services/UserServices";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { LineStyleOutlined } from "@mui/icons-material";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open,isScreenSmall }) => ({
+  ({ theme, open, isScreenSmall }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
@@ -46,7 +47,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
       duration: theme.transitions.duration.leavingScreen,
     }),
     ...(!isScreenSmall && {
-      marginLeft: `-${drawerWidth}px`,  
+      marginLeft: `-${drawerWidth}px`,
     }),
     ...(open && {
       transition: theme.transitions.create("margin", {
@@ -66,8 +67,8 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,  
-      marginLeft: `${drawerWidth}px`,  
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: `${drawerWidth}px`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -79,7 +80,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: "flex-end",
 }));
@@ -87,7 +87,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [value, setValue] = React.useState("");
-  const [newCategory, setNewCategory] = React.useState();
+
   const {
     open,
     setOpen,
@@ -95,9 +95,14 @@ export default function PersistentDrawerLeft() {
     setNewLink,
     showAddButton,
     setShowAddButton,
+    newCategory,
+    setNewCategory,
+    setSelectCategory,
+    setNewHome
   } = React.useContext(AuthContext);
   const allCategories = categories?.filter((c) => c.id === 0);
-
+  const newCategories = categories?.filter((c) => c.id !== 0);
+  console.log(categories?.filter((c) => c.name === 'ola mundo'))
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -126,11 +131,21 @@ export default function PersistentDrawerLeft() {
         alert(error.response.status);
       });
   }
-  const isScreenSmall = useMediaQuery('(max-width:600px)');
-  const categoryList = categories && newCategory ?[...categories,newCategory]:categories
+  const isScreenSmall = useMediaQuery("(max-width:600px)");
+
   const buttonDisabled = value === "" ? true : false;
+
+  function selectCategory(links, listId, listName) {
+    setNewLink(links);
+    setSelectCategory({ listId: listId, name: listName });
+    setOpen(false);
+    if(listId ===0){
+      setNewHome(true);
+    }
+    alert(listId)
+  }
   return (
-    <Box sx={{ display: "flex"}}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
 
       <Nav />
@@ -142,7 +157,7 @@ export default function PersistentDrawerLeft() {
           /* width: drawerWidth, */
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: drawerWidth, 
+            width: drawerWidth,
             boxSizing: "border-box",
           },
         }}
@@ -163,7 +178,11 @@ export default function PersistentDrawerLeft() {
         <List>
           {allCategories?.map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => setNewLink(text.links)}>
+              <ListItemButton
+                onClick={() =>
+                  selectCategory(text?.links, text?.id, text?.name)
+                }
+              >
                 <ListItemIcon>
                   <AllInclusiveIcon />
                 </ListItemIcon>
@@ -174,20 +193,6 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
         <List>
-          {categoryList?.map((text, index) => (
-            <ListItem
-              onClick={() => setNewLink(text.links)}
-              key={text}
-              disablePadding
-            >
-              <ListItemButton>
-                <ListItemIcon>
-                  <CategoryIcon />
-                </ListItemIcon>
-                <ListItemText primary={text.name} />
-              </ListItemButton>
-            </ListItem>
-          ))}
           <AddCategoryContainer selectCategory={"transparent"}>
             {!showAddButton ? (
               <AddCategory
@@ -224,9 +229,27 @@ export default function PersistentDrawerLeft() {
               </form>
             )}
           </AddCategoryContainer>
+          {newCategories?.map((text, index) => (
+            <ListItem
+              onClick={() => selectCategory(text?.links, text?.id, text?.name)}
+              key={text}
+              disablePadding
+            >
+              <ListItemButton>
+                <ListItemIcon>
+                  <CategoryIcon />
+                </ListItemIcon>
+                <ListItemText primary={text.name} />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Drawer>
-      <Main open={open} style={{maxWidth:'100%'}} isScreenSmall={isScreenSmall}>
+      <Main
+        open={open}
+        style={{ maxWidth: "100%" }}
+        isScreenSmall={isScreenSmall}
+      >
         <DrawerHeader />
 
         <Home />
