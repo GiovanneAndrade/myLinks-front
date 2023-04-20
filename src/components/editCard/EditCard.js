@@ -6,7 +6,9 @@ import { AuthContext } from "../../providers/auth";
 import { editLink } from "../../services/UserServices";
 export const EditCard = () => {
   const [loading, setLoading] = useState(false);
-  const { categories,linkId, setClickedLinkId } = React.useContext(AuthContext);
+  const { categories,linkId, setClickedLinkId, setNewLink, newLink } =
+    React.useContext(AuthContext);
+
   const [age, setAge] = React.useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -19,7 +21,6 @@ export const EditCard = () => {
     list: [{ id: age }],
   };
 
- 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
@@ -28,13 +29,20 @@ export const EditCard = () => {
     const link = editLink(data);
     link
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.metaFetcher);
+        const index = newLink.findIndex((link) => link.id === response.data.metaFetcher.id);
+        if (index !== -1) { 
+          newLink.splice(index, 1, response.data.metaFetcher); 
+        } else {
+          newLink.push(response.data.metaFetcher); 
+        }
         setAge("");
         setTitle("");
         setDescription("");
         setPhoto("");
-        setClickedLinkId(false)
-        window.location.reload();
+        setClickedLinkId(false);
+        setNewLink([...newLink]); 
+      
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -42,12 +50,13 @@ export const EditCard = () => {
         setTitle("");
         setDescription("");
         setPhoto("");
-        setClickedLinkId(false)
+        setClickedLinkId(false);
         alert(error.response.status);
       });
   }
+  
   return (
-    <EditCardContainer >
+    <EditCardContainer>
       <input
         type="text"
         placeholder="titulo"
@@ -89,7 +98,7 @@ export const EditCard = () => {
           {!loading ? "Editar" : null}
         </LoadingButton>
         <LoadingButton
-          onClick={()=>setClickedLinkId(false)}
+          onClick={() => setClickedLinkId(false)}
           loading={loading}
           loadingPosition="center"
           variant="outlined"
