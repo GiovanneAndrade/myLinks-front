@@ -16,6 +16,9 @@ export const AuthProvider = (props) => {
   const [newCardEdit, setNewCardEdit] = React.useState();
   const [clickedLinkId, setClickedLinkId] = useState(null);
   const [open, setOpen] = React.useState(false);
+  const [newCategory, setNewCategory] = React.useState();
+  const [selectCategory, setSelectCategory] = React.useState();
+  const [newHome, setNewHome] = React.useState(false);
 
   useEffect(() => {
     const categories = getCategories();
@@ -27,7 +30,7 @@ export const AuthProvider = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [newCategory, newHome]);
   return (
     <AuthContext.Provider
       value={{
@@ -53,6 +56,12 @@ export const AuthProvider = (props) => {
         setLinkId,
         newCardEdit,
         setNewCardEdit,
+        newCategory,
+        setNewCategory,
+        selectCategory,
+        setSelectCategory,
+        newHome,
+        setNewHome
       }}
     >
       {props.children}
