@@ -10,7 +10,8 @@ export const Button = () => {
   const [teste, setTeste] = useState(`0%`);
   const [value, setValue] = useState("");
   const [loading, setLoading] = useState(false)
-  const { setNewLink, newLink, setShowCard } = React.useContext(AuthContext);
+  const { setNewLink, newLink, setShowCard, selectCategory, categories } = React.useContext(AuthContext);
+ 
   function handleNextMouseLeave() {
     if (value !== "") {
       return setTeste("0%");
@@ -26,19 +27,33 @@ export const Button = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+  
+
+  function isValidUrl(url) {
+    const regex = /^((http|https):\/\/)?([A-Za-z0-9\-]+\.)+[A-Za-z]{2,}(\/.*)*$/;
+    return regex.test(url);
+  }
+  
   function handleForm(e) {
     e.preventDefault();
   }
 
   function createLink() {
-    const link = postLinks(value);
+    if (!isValidUrl(value)) {
+      alert("Por favor, insira um link válido");
+      return;
+    }
+    
+    const link = postLinks(value, selectCategory?.listId);
     setLoading(true)
+    
     link
       .then((response) => {
         setNewLink([...newLink, response.data]);
         setShowCard(true);
         setValue("");
         setLoading(false)
+       
       })
       .catch((error) => {
         console.log(error.response.data.message);

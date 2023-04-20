@@ -129,5 +129,12 @@ export const FormSignin = styled.form`
 
 export const ButtonSignin = styled(ButtonContainer)`
  margin-top: 0;
+ 
+ ${props => props.border && `
+    border: 2px solid red;
+  `}
+ 
+
+
 `
 

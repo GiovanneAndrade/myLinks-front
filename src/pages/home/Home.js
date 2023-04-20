@@ -25,15 +25,18 @@ export const Home = () => {
     categories,
     clickedLinkId,
     setClickedLinkId,
+    newCategory,
   } = React.useContext(AuthContext);
 
+  
+  useEffect(() => {
+    setNewLink(categories?.filter((c) => c.id === 0)[0]?.links);
+  }, [categories]);
+  
   const reversedArray = [];
   for (let i = newLink?.length - 1; i >= 0; i--) {
     reversedArray.push(newLink[i]);
   }
-  useEffect(() => {
-    setNewLink(categories?.filter((c) => c.id === 0)[0]?.links);
-  }, [categories]);
 
   return (
     <>
@@ -57,8 +60,8 @@ export const Home = () => {
             ) : (
               <TransitionGroup className="transition">
                 {reversedArray?.map((link, index) => (
-                  <CSSTransition key={link.id} classNames="fade" timeout={300}>
-                    {clickedLinkId === link.id ? (
+                  <CSSTransition key={link?.id} classNames="fade" timeout={300}>
+                    {clickedLinkId === link?.id ? (
                       <EditCard />
                     ) : (
                       
@@ -67,7 +70,7 @@ export const Home = () => {
                         description={link.description}
                         title={link.title}
                         website={link.website}
-                        linkId={link.id}
+                        linkId={link?.id}
                         list={link.link?.list}
                       />
                     )}
