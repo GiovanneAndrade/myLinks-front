@@ -18,9 +18,10 @@ import { postSignin, postSignup } from "../../services/UserServices";
 import { Signup } from "../signup/Signup";
 import { AuthContext } from "../../providers/auth";
 import { toast } from "react-toastify";
+import { LoadingButton } from "@mui/lab";
 
 export const Signin = () => {
-  const { user, setUser } = React.useContext(AuthContext);
+  const { user, setUser,loading, setLoading} = React.useContext(AuthContext);
   const [passwordError, setPasswordError] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
@@ -55,12 +56,13 @@ export const Signin = () => {
     } else {
       setPasswordError(false);
     }
-
+    setLoading(true);
     if (!register) {
       const signin = postSignin({
         email: formValues.email,
         password: formValues.password,
       });
+     
       signin
         .then((response) => {
           console.log(response.data);
@@ -68,9 +70,11 @@ export const Signin = () => {
           setUser(response.data.token);
           navigate("/home");
           window.location.reload();
+          setLoading(false);
         })
         .catch((error) => {
           console.log(error.response.data.message);
+          setLoading(false);
           alert(error.response.status);
         });
     } else {
@@ -89,12 +93,12 @@ export const Signin = () => {
   function newLogin() {
     setRegister(false);
     setFormValues({ email: "", password: "", name: "", confirmPassword: "" });
-    setPasswordError(false)
+    setPasswordError(false);
   }
   function newRegister() {
     setRegister(true);
     setFormValues({ email: "", password: "", name: "", confirmPassword: "" });
-    setPasswordError(false)
+    setPasswordError(false);
   }
   return (
     <ContainerHome>
@@ -164,7 +168,16 @@ export const Signin = () => {
             <div>
               <button onClick={createUser}>
                 {register ? "Cadastrar" : "Entrar"}
-              </button>
+              </button> 
+             {/*  <LoadingButton
+                loading={loading}
+                loadingPosition="center"
+                variant="outlined"
+                onClick={createUser}
+                sx={{ color: "#000" }}
+              >
+                {register ? "Cadastrar" : "Entrar"}
+              </LoadingButton> */}
               <p>
                 {!register ? (
                   <>

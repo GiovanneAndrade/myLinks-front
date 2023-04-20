@@ -2,16 +2,24 @@ import React, { useEffect, useState } from "react";
 import { AuthContext } from "../../providers/auth";
 import { postLinks } from "../../services/UserServices";
 import { ButtonContainer } from "./ButtonStyles";
-import LoadingButton from '@mui/lab/LoadingButton';
-import SaveIcon from '@mui/icons-material/Save';
-import Stack from '@mui/material/Stack';
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+import Stack from "@mui/material/Stack";
 import { CircularProgress } from "@mui/material";
 export const Button = () => {
   const [teste, setTeste] = useState(`0%`);
   const [value, setValue] = useState("");
-  const [loading, setLoading] = useState(false)
-  const { setNewLink, newLink, setShowCard, selectCategory, categories } = React.useContext(AuthContext);
- 
+
+  const {
+    setNewLink,
+    newLink,
+    setShowCard,
+    selectCategory,
+    categories,
+    loading,
+    setLoading,
+  } = React.useContext(AuthContext);
+
   function handleNextMouseLeave() {
     if (value !== "") {
       return setTeste("0%");
@@ -27,13 +35,13 @@ export const Button = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-  
 
   function isValidUrl(url) {
-    const regex = /^((http|https):\/\/)?([A-Za-z0-9\-]+\.)+[A-Za-z]{2,}(\/.*)*$/;
+    const regex =
+      /^((http|https):\/\/)?([A-Za-z0-9\-]+\.)+[A-Za-z]{2,}(\/.*)*$/;
     return regex.test(url);
   }
-  
+
   function handleForm(e) {
     e.preventDefault();
   }
@@ -43,24 +51,22 @@ export const Button = () => {
       alert("Por favor, insira um link válido");
       return;
     }
-    
+
     const link = postLinks(value, selectCategory?.listId);
-    setLoading(true)
-    
+    setLoading(true);
+
     link
       .then((response) => {
         setNewLink([...newLink, response.data]);
         setShowCard(true);
         setValue("");
-        setLoading(false)
-       
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error.response.data.message);
         alert(error.response.status);
-        setLoading(false)
+        setLoading(false);
       });
-    
   }
 
   return (
@@ -72,7 +78,7 @@ export const Button = () => {
         onChange={(e) => setValue(e.target.value)}
         value={value}
       />
-    
+
       <LoadingButton
         loading={loading}
         loadingPosition="center"
@@ -80,10 +86,9 @@ export const Button = () => {
         onMouseEnter={handleNextMouseLeave}
         onMouseLeave={handlePrevMouseLeave}
         onClick={createLink}
-        sx={{color:'#000'}}
+        sx={{ color: "#000" }}
       >
-        {!loading?'Enviar':null}
-      
+        {!loading ? "Enviar" : null}
       </LoadingButton>
     </ButtonContainer>
   );
