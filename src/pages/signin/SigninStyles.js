@@ -17,10 +17,20 @@ export const SigninContainer = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   @media (max-width: 1200px) {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 10px 10px 0 0;
+    @media (max-width: 1200px) {
+      height: 500px;
+    }
+  }
+  @media (max-width: 992px) {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+    border-radius: 0;
+    gap: 20px;
+    width: 90%;
+    top: 0;
+    /* position: absolute; */
+   
   }
 `;
 
@@ -33,10 +43,10 @@ export const SigninLeft = styled.div`
   flex-direction: column;
   border-right: 1px solid rgba(0, 0, 0, 0.5);
   background: rgba(0, 0, 0, 0.782);
-  
+
   border-radius: 10px 0 0 10px;
   gap: 50px;
-  
+
   .welcome {
     font-size: 30px;
   }
@@ -47,23 +57,54 @@ export const SigninLeft = styled.div`
     font-size: 20px;
     text-align: center;
   }
+  @media (max-width: 992px) {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 0;
+    padding: 20px;
+    gap: 20px;
+    .welcome {
+      font-size: 20px;
+    }
+    .textWelcome {
+      font-size: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 50px;
+    }
+  }
 `;
 export const SigninRight = styled.div`
- 
   width: 55%;
   height: 100%;
   background-color: transparent;
- 
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 30px;
   border-radius: 0 10px 10px 0;
+  @media (max-width: 992px) {
+    width: 100%;
+    height: auto;
+    border-right: none;
+
+    padding-bottom: 20px;
+    gap: 20px;
+  }
 `;
 export const H1 = styled.h1`
   font-size: 30px;
   color: #fff;
+  @media (max-width: 992px) {
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+  }
 `;
 export const ExternalLogin = styled.div`
   display: flex;
@@ -84,16 +125,25 @@ export const ExternalLogin = styled.div`
     text-align: center;
     cursor: pointer;
   }
+  @media (max-width: 992px) {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h2 {
+      font-size: 8px;
+    }
+  }
 `;
 export const FormSignin = styled.form`
- 
   display: flex;
   position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
-
+ 
   div {
     width: 100%;
     display: flex;
@@ -106,6 +156,7 @@ export const FormSignin = styled.form`
     width: 100%;
     display: flex;
     justify-content: right;
+    margin-right: 20px;
   }
 
   button {
@@ -125,16 +176,32 @@ export const FormSignin = styled.form`
     color: #fff;
     cursor: pointer;
   }
+  @media (max-width: 992px) {
+    width: 110%;
+    gap: 20px;
+    div {
+      font-size: 12px;
+
+      justify-content: space-around;
+    }
+    .forgotPassword {
+      margin-right: 40px;
+    }
+  }
 `;
 
 export const ButtonSignin = styled(ButtonContainer)`
- margin-top: 0;
- 
- ${props => props.border && `
+  margin-top: 0;
+  input {
+    width: 100%;
+  }
+  @media (max-width: 540px) {
+    width: 90%;
+    gap: 20px;
+  }
+  ${(props) =>
+    props.border &&
+    `
     border: 2px solid red;
   `}
- 
-
-
-`
-
+`;

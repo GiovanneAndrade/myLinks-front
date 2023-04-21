@@ -18,9 +18,11 @@ import { postSignin, postSignup } from "../../services/UserServices";
 import { Signup } from "../signup/Signup";
 import { AuthContext } from "../../providers/auth";
 import { toast } from "react-toastify";
+import { LoadingButton } from "@mui/lab";
 
 export const Signin = () => {
-  const { user, setUser } = React.useContext(AuthContext);
+  const notify = () => toast("Em Breve!");
+  const { user, setUser, loading, setLoading } = React.useContext(AuthContext);
   const [passwordError, setPasswordError] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
@@ -55,7 +57,7 @@ export const Signin = () => {
     } else {
       setPasswordError(false);
     }
-
+    setLoading(true)
     if (!register) {
       const signin = postSignin({
         email: formValues.email,
@@ -67,11 +69,13 @@ export const Signin = () => {
           localStorage.setItem("tokenMyLink", JSON.stringify(response.data));
           setUser(response.data.token);
           navigate("/home");
+          setLoading(false)
           window.location.reload();
         })
         .catch((error) => {
           console.log(error.response.data.message);
           alert(error.response.status);
+          setLoading(false)
         });
     } else {
       const signup = postSignup(formValues);
@@ -79,9 +83,11 @@ export const Signin = () => {
         .then((response) => {
           console.log(response.data);
           setRegister(false);
+          setLoading(false)
         })
         .catch((error) => {
           console.log(error.response.data.message);
+          setLoading(false)
           alert(error.response.data.message);
         });
     }
@@ -89,12 +95,12 @@ export const Signin = () => {
   function newLogin() {
     setRegister(false);
     setFormValues({ email: "", password: "", name: "", confirmPassword: "" });
-    setPasswordError(false)
+    setPasswordError(false);
   }
   function newRegister() {
     setRegister(true);
     setFormValues({ email: "", password: "", name: "", confirmPassword: "" });
-    setPasswordError(false)
+    setPasswordError(false);
   }
   return (
     <ContainerHome>
@@ -109,7 +115,7 @@ export const Signin = () => {
         <SigninRight>
           <H1>Login to start using or Register</H1>
           <ExternalLogin>
-            <h2>
+            <h2 onClick={() => notify()}>
               <GoogleIcon />
               continue with Google
             </h2>
@@ -148,7 +154,7 @@ export const Signin = () => {
               />
             </ButtonSignin>
             {register ? (
-              <ButtonSignin type={"0%"} border={passwordError}>
+              <ButtonSignin type={"0%"}>
                 <input
                   type="password"
                   placeholder="confirme a senha"
@@ -158,13 +164,21 @@ export const Signin = () => {
               </ButtonSignin>
             ) : null}
             <div className="forgotPassword">
-              <a>Forgot password</a>
+              <a className="forgout">Forgot password</a>
             </div>
 
             <div>
-              <button onClick={createUser}>
+              
+              <LoadingButton
+               className="loading"
+                loading={loading}
+                loadingPosition="center"
+                variant="outlined"
+                onClick={createUser}
+                sx={{ color: "#000" }}
+              >
                 {register ? "Cadastrar" : "Entrar"}
-              </button>
+              </LoadingButton>
               <p>
                 {!register ? (
                   <>
