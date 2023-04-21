@@ -19,7 +19,7 @@ export const AuthProvider = (props) => {
   const [newCategory, setNewCategory] = React.useState();
   const [selectCategory, setSelectCategory] = React.useState();
   const [newHome, setNewHome] = React.useState(false);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const categories = getCategories();
     categories
@@ -61,7 +61,9 @@ export const AuthProvider = (props) => {
         selectCategory,
         setSelectCategory,
         newHome,
-        setNewHome
+        setNewHome,
+        loading,
+        setLoading,
       }}
     >
       {props.children}

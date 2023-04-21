@@ -1,5 +1,6 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+
+// Imports do MUI
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -18,14 +19,18 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import CategoryIcon from "@mui/icons-material/Category";
+import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
+
+// Outros imports
+import { styled } from "@mui/material/styles";
 import { Nav } from "../nav/Nav";
 import { AuthContext } from "../../providers/auth";
 import { Button } from "../button/Button";
 import { Home } from "../../pages/home/Home";
-import CategoryIcon from "@mui/icons-material/Category";
-import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import { Categories } from "../categories/Categories";
-import { useMediaQuery } from "@mui/material";
 import {
   AddCategory,
   AddCategoryContainer,
@@ -36,6 +41,7 @@ import {
 import { postCategory } from "../../services/UserServices";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { LineStyleOutlined } from "@mui/icons-material";
+
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
