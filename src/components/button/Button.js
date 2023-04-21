@@ -9,8 +9,8 @@ import { CircularProgress } from "@mui/material";
 export const Button = () => {
   const [teste, setTeste] = useState(`0%`);
   const [value, setValue] = useState("");
-  const [loading, setLoading] = useState(false)
-  const { setNewLink, newLink, setShowCard, selectCategory, categories } = React.useContext(AuthContext);
+
+  const { setNewLink, newLink, setShowCard, selectCategory, categories, loading, setLoading } = React.useContext(AuthContext);
  
   function handleNextMouseLeave() {
     if (value !== "") {
