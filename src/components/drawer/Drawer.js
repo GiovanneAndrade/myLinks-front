@@ -148,7 +148,7 @@ export default function PersistentDrawerLeft() {
     if(listId ===0){
       setNewHome(true);
     }
-    alert(listId)
+    
   }
   return (
     <Box sx={{ display: "flex" }}>

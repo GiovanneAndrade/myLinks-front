@@ -1,7 +1,7 @@
 # My Links (em progresso)
 Um aplicativo Web fullstack que permite aos usuários salvar e gerenciar seus links favoritos de forma intuitiva e elegante.
 
-<img src="/assets/my-wallet-usage.gif" />
+<img src="/assets/myLinks.gif" />
 
 Experimente agora em my-links-tau.vercel.app
 
