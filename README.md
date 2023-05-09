@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# My Links
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Um aplicativo Web fullstack que permite aos usuários salvar e gerenciar seus links favoritos de forma intuitiva e elegante.
 
-## Available Scripts
+<img src="/assets/my-wallet-usage.gif" />
 
-In the project directory, you can run:
+Experimente agora em my-links-tau.vercel.app
 
-### `npm start`
+## Sobre
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+O My Links permite os usuários salvar e gerenciar seus links favoritos de forma intuitiva e elegante. Focado em solucionar os problemas comuns encontrados nos navegadores como:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Dificuldade em encontrar links salvos anteriormente.
+- Dificuldade em organizar os links de maneira eficiente.
+- Dificuldade em compartilhar e sincronizar links entre diferentes dispositivos.
+- Falta de informações relevantes sobre os links salvos, como metadados e categorias.
+- Interface desorganizada e pouco intuitiva.
 
-### `npm test`
+No My Links, os usuários podem:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Adicionar novos links à sua coleção de favoritos.
+- Visualizar os metadados dos links adicionados em cards elegantes.
+- Criar categorias personalizadas para organizar seus links.
+- Adicionar links a categorias existentes.
+- Editar e atualizar informações de links já adicionados.
+- Excluir links da coleção.
+- esquisar por links específicos em sua coleção.
 
-### `npm run build`
+## Tecnologias
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+As seguintes ferramentas e frameworks foram utilizados na construção do projeto:<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<p>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/styled-components%20-%2320232a.svg?&style=for-the-badge&color=b8679e&logo=styled-components&logoColor=%3a3a3a'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=for-the-badge&color=informational'>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/react-app%20-%2320232a.svg?&style=for-the-badge&color=60ddf9&logo=react&logoColor=%2361DAFB"/>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/react_route%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/react-icons%20-%2320232a.svg?&style=for-the-badge&color=f28dc7&logo=react-icons&logoColor=%2361DAFB'>
+  <img style='margin: 5px;' src="https://img.shields.io/badge/Material--UI-%2320232a.svg?style=for-the-badge&color=0081CB&logo=material-ui&logoColor=white" />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+</p>
 
-### `npm run eject`
+## Como usar
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clonar este repositório
+2. Clone o repositório de back-end em https://github.com/GiovanneAndrade/myLinks-back
+3. Siga as instruções para executar o back-end em https://github.com/GiovanneAndrade/myLinks-back
+4. Instale as dependências
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm i
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. Execute o front-end com
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm start
+```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+6. Por fim, acesse http://localhost:3000 em seu navegador favorito (a menos que seja o Internet Explorer. Nesse caso, reveja suas decisões de vida)
