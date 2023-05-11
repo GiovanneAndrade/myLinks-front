@@ -23,7 +23,7 @@ No My Links, os usuários podem:
 - Adicionar links a categorias existentes.
 - Editar e atualizar informações de links já adicionados.
 - Excluir links da coleção.
-- esquisar por links específicos em sua coleção.
+- Pesquisar por links específicos em sua coleção.
 
 ## Tecnologias
 
